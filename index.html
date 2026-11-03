@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock Interview AI Agent</title>
+    <meta name="description" content="Purpose-built technical screening simulation platform for Computer Science students preparing for software engineering interviews." />
+    <meta property="og:title" content="Mock Interview AI Agent" />
+    <meta property="og:description" content="Purpose-built technical screening simulation platform for Computer Science students preparing for software engineering interviews." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Suppress Vite HMR WebSocket errors as HMR is disabled in AI Studio
+      window.addEventListener('unhandledrejection', function (e) {
+        if (e.reason && (
+          (typeof e.reason.message === 'string' && e.reason.message.includes('WebSocket')) ||
+          (typeof e.reason.stack === 'string' && e.reason.stack.includes('@vite/client'))
+        )) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+      window.addEventListener('error', function (e) {
+        if (
+          (e.filename && e.filename.includes('@vite/client')) ||
+          (e.message && e.message.includes('WebSocket'))
+        ) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

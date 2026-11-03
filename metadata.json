@@ -1,0 +1,6 @@
+{
+  "name": "Mock Interview AI Agent",
+  "description": "Purpose-built technical screening simulation platform for Computer Science students preparing for software engineering interviews.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
