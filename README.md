@@ -144,6 +144,31 @@ code in this repository.
   unit tests and the manual checks above.
 - **Lee and Franck:** _add how you used Copilot / Figma MCP for your parts._
 
+## Sprint 1 submission and evidence
+
+- **Application repository:** https://github.com/YousefQanadilo/Ai_Interview
+- **Figma prototype:** https://www.figma.com/file/oahuXOFAGsxWDxGJ9l2NT5?node-id=0%3A1
+- **Completed feature issue:** [#11 — Save diagnostic practice sessions and reopen history](https://github.com/YousefQanadilo/Ai_Interview/issues/11)
+- **Feature pull request:** [#12 — Save demo diagnostic sessions and view history](https://github.com/YousefQanadilo/Ai_Interview/pull/12)
+- **GitHub Project / Sprint 1 board:** Add the team's actual GitHub Project URL after confirming that #11 is assigned to Sprint 1.
+
+### Screenshot checklist
+
+Capture these authentic screenshots from the team's local environment and upload them to an `evidence/` folder in this repository:
+
+| File | Evidence |
+|---|---|
+| `evidence/history.png` | Saved session displayed in the Student Practice History drawer |
+| `evidence/output.png` | `npm run lint`, 18 passing unit tests, and `npm run build` |
+| `evidence/mcp.png` | Running Figma MCP server and design-context response in VS Code |
+| `evidence/copo.png` | Repository analysis from the VS Code chat panel |
+
+**Evidence status:** Screenshots have been captured locally but are not yet uploaded to this repository. The displayed chat panel should be checked to ensure the Copilot screenshot actually demonstrates **GitHub Copilot** rather than another assistant.
+
+### Acceptance criteria verification
+
+The student reported that `npm run lint` passed, **18 of 18** tests passed, and `npm run build` succeeded with a non-blocking Vite warning. The student manually confirmed that the saved demo session appears in History and works in the browser. The local-browser storage implementation is a demonstration feature, not a completed live-interview backend.
+
 ## Planning
 
 User stories and feature work are tracked in [GitHub Issues](https://github.com/YousefQanadilo/Ai_Interview/issues).
