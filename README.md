@@ -17,6 +17,7 @@ backend API and the live interview stages are coming next.
 | Lee Tropezado | Frontend: project setup, UI components, interview screens |
 | Franck Kanunu | Backend: data model, question data, API server, Gemini integration |
 | Kailyn Ponce | Frontend: pre-interview microphone & connection check (#2), diagnostic rubric and debrief (#4), Figma prototype |
+| Yousef Qanadilo | Frontend: demo session saving and history drawer (#11, PR #12), browser session-history storage with unit tests, Sprint 1 evidence screenshots and submission |
 
 ## Tech stack
 
