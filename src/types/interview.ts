@@ -119,6 +119,18 @@ export interface RemediationDrillSpec {
 
 export type StrictHiringVerdict = 'STRONG_HIRE' | 'HIRED' | 'LEAN_NO_HIRE' | 'NOT_HIRED';
 
+export type RubricCriterionId =
+  | 'communication'
+  | 'complexity_analysis'
+  | 'edge_case_testing'
+  | 'star_structure';
+
+export interface RubricCriterionScore {
+  criterion: RubricCriterionId;
+  score: number; // 0-100
+  evidence?: string;
+}
+
 export interface DiagnosticEvaluation {
   session_id: string;
   hiring_verdict: StrictHiringVerdict;
@@ -143,6 +155,7 @@ export interface DiagnosticEvaluation {
     missing_tradeoffs: string[];
     cadence_analysis: string;
   };
+  rubric_criteria?: RubricCriterionScore[];
 }
 
 export interface LiveCallDebrief {

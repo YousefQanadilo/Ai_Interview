@@ -16,13 +16,13 @@ backend API and the live interview stages are coming next.
 |---|---|
 | Lee Tropezado | Frontend: project setup, UI components, interview screens |
 | Franck Kanunu | Backend: data model, question data, API server, Gemini integration |
-| Kailyn Ponce | Frontend: pre-interview mic setup (#2), diagnostic rubric and debrief (#4) |
+| Kailyn Ponce | Frontend: pre-interview microphone & connection check (#2), diagnostic rubric and debrief (#4), Figma prototype |
 
 ## Tech stack
 
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS
 - **Backend (in progress):** Node.js, Express, WebSockets
-- **AI:** Google Gemini API
+- **AI:** Google Gemini API, Claude
 
 ## Run locally
 
