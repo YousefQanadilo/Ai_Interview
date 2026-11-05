@@ -22,7 +22,7 @@ screen are coming next.
 
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS
 - **Backend (in progress):** Node.js, Express, WebSockets
-- **AI:** Google Gemini API
+- **AI:** Google Gemini API, Claude
 
 ## Run locally
 
