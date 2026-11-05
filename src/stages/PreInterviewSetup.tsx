@@ -103,6 +103,17 @@ export const PreInterviewSetup: React.FC<PreInterviewSetupProps> = ({ serverUrl,
         >
           {ready ? <CheckCircle2 className="w-4 h-4" /> : null} Start interview <ArrowRight className="w-4 h-4" />
         </button>
+
+        {/* Local development only: the live voice backend isn't built yet, so let the
+            team skip the connection check to reach the rest of the app. Not in production builds. */}
+        {import.meta.env.DEV && !ready && (
+          <button
+            onClick={() => onReady?.(null)}
+            className="w-full text-xs text-slate-500 hover:text-slate-300 underline underline-offset-2 cursor-pointer"
+          >
+            Skip connection check (dev only)
+          </button>
+        )}
       </div>
     </div>
   );
