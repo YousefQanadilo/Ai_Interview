@@ -85,6 +85,33 @@ Frame 4 of the storyboard: the student's scores after an interview answer.
 - Files: `src/stages/Stage4DiagnosticRubric.tsx`, `src/components/DebriefModal.tsx`,
   `src/services/evaluationService.ts`, `src/services/diagnosticScoring.ts`
 
+
+### Demo session history ([#11](https://github.com/YousefQanadilo/Ai_Interview/issues/11))
+
+This Sprint 1 feature adds a **Save demo session** button on the diagnostic dashboard and
+a **History** drawer. It saves the example diagnostic to this browser's localStorage
+(maximum 20 entries), avoids duplicate saves, and restores saved results without calling
+the unfinished evaluation backend. The UI explicitly labels these as demonstration
+results, not actual live interview scores.
+
+To test manually:
+
+1. Run `npx vite` and use the existing **Skip connection check (dev only)** option.
+2. On the diagnostic dashboard click **Save demo session**.
+3. Open **History** and verify the entry lists the role, domain, date and scores.
+4. Reload the page, skip the dev connection check again, and confirm History still has the entry.
+5. Select the saved entry and confirm the diagnostic dashboard reopens.
+6. Click save again and confirm the count remains one.
+7. Clear browser site data to reset the saved demo entries.
+
+Automated checks: `npm test` includes `src/services/sessionHistory.test.ts`,
+which covers persistence, duplicates, malformed stored data, and the 20-item limit.
+Run `npm run lint` and `npm run build` as well. Browser-specific behavior must
+still be verified locally. This is not a live session-history backend.
+
+AI usage (#11): ChatGPT assisted with the browser-storage helper, integration, tests,
+and documentation. The team should review the code and run the checks before merging.
+
 ## Testing
 
 ```bash
