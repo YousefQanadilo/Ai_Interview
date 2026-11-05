@@ -112,8 +112,6 @@ the evaluate API call, and HTTP errors.
 We used AI tools during Sprint 1, and the team reviewed, tested and is responsible for all
 code in this repository.
 
-- **#2 Pre-interview mic setup (Kailyn):** written with GitHub Copilot in VS Code. Kailyn
-  reviewed the code and tested it manually in Chrome.
 - **#4 Diagnostic rubric (Kailyn):** written with Claude (Anthropic), which read the Figma
   storyboard frame for the layout and proposed the scoring thresholds. Verified with the
   unit tests and the manual checks above.
