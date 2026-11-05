@@ -16,6 +16,7 @@ screen are coming next.
 |---|---|
 | Lee Tropezado | Frontend: project setup, UI components, interview screens |
 | Franck Kanunu | Backend: data model, question data, API server, Gemini integration |
+| Kailyn Ponce | Frontend: pre-interview microphone & connection check (#2), Figma prototype |
 
 ## Tech stack
 
