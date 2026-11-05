@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
 import { DiagnosticEvaluation, StageNumber } from './types/interview';
 import { StageProgressBar } from './components/StageProgressBar';
+import { PreInterviewSetup } from './stages/PreInterviewSetup';
 import { Stage4DiagnosticRubric } from './stages/Stage4DiagnosticRubric';
 import { SAMPLE_SESSION } from './data/sampleSession';
 
-// Frames 1-3 aren't built yet, so the app opens on Frame 4 with a sample
+// Live voice backend (coming in a later PBI). Override with VITE_LIVE_VOICE_WS_URL in .env.local.
+const LIVE_VOICE_WS_URL =
+  import.meta.env.VITE_LIVE_VOICE_WS_URL ??
+  `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}/live`;
+
+// Flow so far: pre-interview setup (#2) -> diagnostic rubric (#4) -> drill placeholder.
+// Frames 2-3 aren't built yet, so after setup the app shows Frame 4 with a sample
 // finished session. Once the interview stages exist, pass the real session here.
 export default function App() {
+  const [started, setStarted] = useState(false);
   const [stage, setStage] = useState<StageNumber>(4);
   const [drill, setDrill] = useState<DiagnosticEvaluation['remediation_drill'] | null>(null);
+
+  if (!started) {
+    return <PreInterviewSetup serverUrl={LIVE_VOICE_WS_URL} onReady={() => setStarted(true)} />;
+  }
 
   return (
     <div className="min-h-screen">
