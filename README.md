@@ -115,7 +115,8 @@ code in this repository.
 - **#4 Diagnostic rubric (Kailyn):** written with Claude (Anthropic), which read the Figma
   storyboard frame for the layout and proposed the scoring thresholds. Verified with the
   unit tests and the manual checks above.
-- **Lee and Franck:** _add how you used Copilot / Figma MCP for your parts._
+- **Project management (Lee):** used Claude (Anthropic) to check the GitHub Issues against the assignment’s PBI format, plan Sprint 1 in GitHub Projects, and review PR #7. All issue content, labels and sprint assignments were set and checked by Lee.
+- **Franck:** _add how you used Copilot / Figma MCP for your parts._
 
 ## Planning
 
