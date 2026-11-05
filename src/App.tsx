@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { DiagnosticEvaluation, StageNumber } from './types/interview';
+import { DiagnosticEvaluation, InterviewSession, StageNumber } from './types/interview';
+import { HistoryDrawer } from './components/HistoryDrawer';
+import { loadHistory, saveHistory } from './services/sessionHistory';
 import { StageProgressBar } from './components/StageProgressBar';
 import { PreInterviewSetup } from './stages/PreInterviewSetup';
 import { Stage4DiagnosticRubric } from './stages/Stage4DiagnosticRubric';
@@ -18,22 +20,50 @@ export default function App() {
   const [stage, setStage] = useState<StageNumber>(4);
   const [drill, setDrill] = useState<DiagnosticEvaluation['remediation_drill'] | null>(null);
 
+  const [activeSession, setActiveSession] = useState<InterviewSession>(SAMPLE_SESSION);
+  const [history, setHistory] = useState<InterviewSession[]>(() => loadHistory(window.localStorage));
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
+
+  const saveSession = () => {
+    try {
+      setHistory(saveHistory(window.localStorage, activeSession));
+      setSaveMessage('Demo session saved to this browser.');
+    } catch {
+      setSaveMessage('Could not save. Check browser storage settings.');
+    }
+  };
+
   if (!started) {
     return <PreInterviewSetup serverUrl={LIVE_VOICE_WS_URL} onReady={() => setStarted(true)} />;
   }
 
   return (
     <div className="min-h-screen">
+      <div className="max-w-md mx-auto px-4 py-3 flex justify-between items-center gap-3">
+        <div>
+          <h1 className="font-semibold text-sm">Interview practice</h1>
+          <p className="text-[11px] text-amber-300">Demo evaluation — not a live interview result</p>
+        </div>
+        <button type="button" onClick={() => setHistoryOpen(true)} className="rounded-lg border border-slate-700 text-cyan-300 px-3 py-2 text-xs cursor-pointer">History ({history.length})</button>
+      </div>
       <StageProgressBar currentStageNumber={stage} />
 
       {stage === 4 && (
+        <>
         <Stage4DiagnosticRubric
-          session={SAMPLE_SESSION}
+          key={activeSession.id}
+          session={activeSession}
           onSelectFlaggedArea={(evaluation) => {
             setDrill(evaluation.remediation_drill);
             setStage(5);
           }}
         />
+        <div className="max-w-md mx-auto px-4 pb-6 space-y-2">
+          <button type="button" onClick={saveSession} className="w-full bg-cyan-600 hover:bg-cyan-500 rounded-xl py-2.5 text-sm font-semibold cursor-pointer">Save demo session</button>
+          {saveMessage && <p role="status" className="text-xs text-slate-300">{saveMessage}</p>}
+        </div>
+        </>
       )}
 
       {stage === 5 && drill && (
@@ -51,6 +81,17 @@ export default function App() {
           </div>
         </div>
       )}
+      <HistoryDrawer
+        isOpen={historyOpen}
+        onClose={() => setHistoryOpen(false)}
+        sessions={history}
+        onSelectSession={(session) => {
+          setActiveSession(session);
+          setDrill(null);
+          setStage(4);
+          setSaveMessage('');
+        }}
+      />
     </div>
   );
 }
