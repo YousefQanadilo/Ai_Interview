@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id         String             @id @default(cuid())
+  displayName String
+  email      String?            @unique
+  createdAt  DateTime           @default(now())
+  sessions   InterviewSession[]
+}
+
+model InterviewQuestion {
+  id                  String             @id
+  domain              String
+  difficulty          String
+  title               String
+  prompt              String
+  targetMechanism     String
+  expectedKeywordsJson String            @default("[]")
+  keyInvariantsJson   String             @default("[]")
+  misconceptionsJson  String             @default("[]")
+  sessions            InterviewSession[]
+
+  @@index([domain, difficulty])
+}
+
+model InterviewSession {
+  id                   String               @id @default(cuid())
+  studentId            String?
+  questionId           String?
+  role                 String
+  domain               String
+  currentStage         String               @default("STAGE_1_INIT")
+  startedAt            DateTime             @default(now())
+  endedAt              DateTime?
+  totalDurationSeconds Int                  @default(0)
+  student              Student?             @relation(fields: [studentId], references: [id], onDelete: SetNull)
+  question             InterviewQuestion?   @relation(fields: [questionId], references: [id], onDelete: SetNull)
+  responses            InterviewResponse[]
+  evaluation           DiagnosticEvaluation?
+  remediationAttempts  RemediationAttempt[]
+
+  @@index([studentId, startedAt])
+  @@index([startedAt])
+}
+
+model InterviewResponse {
+  id                  String            @id @default(cuid())
+  sessionId           String
+  kind                String
+  transcript          String
+  durationSeconds     Int
+  cadenceGapSeconds   Int?
+  recordedAt          DateTime          @default(now())
+  session             InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, recordedAt])
+}
+
+model DiagnosticEvaluation {
+  id                  String            @id @default(cuid())
+  sessionId           String            @unique
+  hiringVerdict       String
+  verdictHeadline     String
+  technicalAccuracy   Int
+  communicationScore  Int
+  readinessLevel      String
+  rejectionReasonsJson String          @default("[]")
+  flaggedConcept      String
+  flaggedDiagnosis    String
+  cadenceGapSeconds   Int?
+  drillPrompt         String
+  drillDurationSeconds Int
+  drillFocus          String?
+  modelAnswerJson     String            @default("[]")
+  detailedFeedbackJson String           @default("{}")
+  rubricCriteriaJson  String            @default("[]")
+  createdAt           DateTime          @default(now())
+  session             InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model RemediationAttempt {
+  id                  String            @id @default(cuid())
+  sessionId           String
+  drillPrompt         String
+  transcript          String
+  durationSeconds     Int
+  baselineMastery     Int
+  revisedMastery      Int
+  masteryGain         Int
+  strengthsJson       String            @default("[]")
+  persistingGapsJson  String            @default("[]")
+  evaluatorNotes      String            @default("")
+  createdAt           DateTime          @default(now())
+  session             InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+}
