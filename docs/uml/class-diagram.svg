@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1065px" preserveAspectRatio="none" style="width:1517px;height:1065px;" version="1.1" viewBox="0 0 1517 1065" width="1517px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="430" x="547" y="17.4375">AI Interview: Persistence Model (Prisma + SQLite)</text><!--MD5=[d6181cb537bdc20c0a3007a98a56832d]
+class Student--><rect fill="#FEFECE" height="108.2773" id="Student" style="stroke: #A80036; stroke-width: 1.5;" width="166" x="591" y="69.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="651" y="86.4043">«entity»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="44" x="652" y="100.9238">Student</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="592" x2="756" y1="108.8184" y2="108.8184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="597" y="123.4746">+id : String {PK, cuid}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="116" x="597" y="136.7842">+displayName : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="154" x="597" y="150.0938">+email : String [0..1] {unique}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="153" x="597" y="163.4033">+createdAt : DateTime = now</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="592" x2="756" y1="170.0566" y2="170.0566"/><!--MD5=[c1479ca4ff655bec57ced5aa082f417a]
+class InterviewQuestion--><rect fill="#FEFECE" height="188.1348" id="InterviewQuestion" style="stroke: #A80036; stroke-width: 1.5;" width="217" x="862.5" y="29.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="948" y="46.4043">«entity»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="919.5" y="60.9238">InterviewQuestion</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="863.5" x2="1078.5" y1="68.8184" y2="68.8184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="85" x="868.5" y="83.4746">+id : String {PK}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="130" x="868.5" y="96.7842">+domain : FocusDomain</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="159" x="868.5" y="110.0938">+difficulty : QuestionDifficulty</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="68" x="868.5" y="123.4033">+title : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="87" x="868.5" y="136.7129">+prompt : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="140" x="868.5" y="150.0225">+targetMechanism : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="205" x="868.5" y="163.332">+expectedKeywordsJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="175" x="868.5" y="176.6416">+keyInvariantsJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="190" x="868.5" y="189.9512">+misconceptionsJson : String = "[]"</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="863.5" x2="1078.5" y1="196.6045" y2="196.6045"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="145" x="868.5" y="211.2607">«index» (domain, difficulty)</text><!--MD5=[812568acb719c2acb51e8a2fc6230686]
+class InterviewSession--><rect fill="#FEFECE" height="201.4443" id="InterviewSession" style="stroke: #A80036; stroke-width: 1.5;" width="259" x="619.5" y="310.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="726" y="327.4043">«entity»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="97" x="700.5" y="341.9238">InterviewSession</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="620.5" x2="877.5" y1="349.8184" y2="349.8184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="625.5" y="364.4746">+id : String {PK, cuid}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="154" x="625.5" y="377.7842">+studentId : String [0..1] {FK}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="160" x="625.5" y="391.0938">+questionId : String [0..1] {FK}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="93" x="625.5" y="404.4033">+role : TargetRole</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="130" x="625.5" y="417.7129">+domain : FocusDomain</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="247" x="625.5" y="431.0225">+currentStage : InterviewStage = STAGE_1_INIT</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="151" x="625.5" y="444.332">+startedAt : DateTime = now</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="139" x="625.5" y="457.6416">+endedAt : DateTime [0..1]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="203" x="625.5" y="470.9512">+totalDurationSeconds : Int = 0 {&gt;= 0}</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="620.5" x2="877.5" y1="477.6045" y2="477.6045"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="158" x="625.5" y="492.2607">«index» (studentId, startedAt)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="101" x="625.5" y="505.5703">«index» (startedAt)</text><!--MD5=[14de8a84e864bbe8e0d9076576bd7c90]
+class InterviewResponse--><rect fill="#FEFECE" height="161.5156" id="InterviewResponse" style="stroke: #A80036; stroke-width: 1.5;" width="218" x="6" y="671.2793"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="92" y="687.9043">«entity»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="108" x="61" y="702.4238">InterviewResponse</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="223" y1="710.3184" y2="710.3184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="12" y="724.9746">+id : String {PK, cuid}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="12" y="738.2842">+sessionId : String {FK}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="115" x="12" y="751.5938">+kind : ResponseKind</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="162" x="12" y="764.9033">+transcript : String {not blank}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="158" x="12" y="778.2129">+durationSeconds : Int {&gt;= 0}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="206" x="12" y="791.5225">+cadenceGapSeconds : Int [0..1] {&gt;= 0}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="161" x="12" y="804.832">+recordedAt : DateTime = now</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="7" x2="223" y1="811.4854" y2="811.4854"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="168" x="12" y="826.1416">«index» (sessionId, recordedAt)</text><!--MD5=[8700feeb1299aadccb71146154c95de7]
+class DiagnosticEvaluation--><rect fill="#FEFECE" height="294.6113" id="DiagnosticEvaluation" style="stroke: #A80036; stroke-width: 1.5;" width="212" x="259" y="604.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="342" y="621.4043">«entity»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="119" x="305.5" y="635.9238">DiagnosticEvaluation</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="260" x2="470" y1="643.8184" y2="643.8184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="265" y="658.4746">+id : String {PK, cuid}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="169" x="265" y="671.7842">+sessionId : String {FK, unique}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="183" x="265" y="685.0938">+hiringVerdict : StrictHiringVerdict</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="130" x="265" y="698.4033">+verdictHeadline : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="171" x="265" y="711.7129">+technicalAccuracy : Int {0..100}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="187" x="265" y="725.0225">+communicationScore : Int {0..100}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="175" x="265" y="738.332">+readinessLevel : ReadinessLevel</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="196" x="265" y="751.6416">+rejectionReasonsJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="133" x="265" y="764.9512">+flaggedConcept : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="141" x="265" y="778.2607">+flaggedDiagnosis : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="169" x="265" y="791.5703">+cadenceGapSeconds : Int [0..1]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="107" x="265" y="804.8799">+drillPrompt : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="179" x="265" y="818.1895">+drillDurationSeconds : Int {&gt;= 0}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="129" x="265" y="831.499">+drillFocus : String [0..1]</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="178" x="265" y="844.8086">+modelAnswerJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="200" x="265" y="858.1182">+detailedFeedbackJson : String = "{}"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="174" x="265" y="871.4277">+rubricCriteriaJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="153" x="265" y="884.7373">+createdAt : DateTime = now</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="260" x2="470" y1="891.3906" y2="891.3906"/><!--MD5=[60f0386e1c8b363dfcc83b701661c339]
+class RemediationAttempt--><rect fill="#FEFECE" height="228.0635" id="RemediationAttempt" style="stroke: #A80036; stroke-width: 1.5;" width="224" x="506" y="638.2793"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="46" x="595" y="654.9043">«entity»</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="560" y="669.4238">RemediationAttempt</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="507" x2="729" y1="677.3184" y2="677.3184"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="512" y="691.9746">+id : String {PK, cuid}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="126" x="512" y="705.2842">+sessionId : String {FK}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="107" x="512" y="718.5938">+drillPrompt : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="512" y="731.9033">+transcript : String</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="158" x="512" y="745.2129">+durationSeconds : Int {&gt;= 0}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="160" x="512" y="758.5225">+baselineMastery : Int {0..100}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="154" x="512" y="771.832">+revisedMastery : Int {0..100}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="212" x="512" y="785.1416">+masteryGain : Int {= revised - baseline}</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="156" x="512" y="798.4512">+strengthsJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="185" x="512" y="811.7607">+persistingGapsJson : String = "[]"</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="151" x="512" y="825.0703">+evaluatorNotes : String = ""</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="153" x="512" y="838.3799">+createdAt : DateTime = now</text><line style="stroke: #A80036; stroke-width: 1.0;" x1="507" x2="729" y1="845.0332" y2="845.0332"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="160" x="512" y="859.6895">«index» (sessionId, createdAt)</text><!--MD5=[9f29069606b2cf90ef5c74e65bd0521f]
+class TargetRole--><rect fill="#FEFECE" height="80.4482" id="TargetRole" style="stroke: #A80036; stroke-width: 1.5;" width="229" x="765.5" y="712.2793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="848.5" y="728.9043">TargetRole</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="766.5" x2="993.5" y1="736.7988" y2="736.7988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="132" x="771.5" y="751.4551">Junior Backend Engineer</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="141" x="771.5" y="764.7646">Junior Full-Stack Engineer</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="217" x="771.5" y="778.0742">Junior Systems &amp; Infrastructure Engineer</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="766.5" x2="993.5" y1="784.7275" y2="784.7275"/><!--MD5=[db97f2dbedd711c6cb8315c05e2afcc0]
+class FocusDomain--><rect fill="#FEFECE" height="107.0674" id="FocusDomain" style="stroke: #A80036; stroke-width: 1.5;" width="232" x="1030" y="698.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="78" x="1107" y="715.4043">FocusDomain</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="1031" x2="1261" y1="723.2988" y2="723.2988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="169" x="1036" y="737.9551">Relational Databases &amp; Indexing</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="164" x="1036" y="751.2646">Distributed Systems &amp; Caching</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="220" x="1036" y="764.5742">Data Structures &amp; Algorithmic Complexity</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="181" x="1036" y="777.8838">Operating Systems &amp; Concurrency</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="202" x="1036" y="791.1934">Web Architecture &amp; API Fundamentals</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="1031" x2="1261" y1="797.8467" y2="797.8467"/><!--MD5=[54185e282ad77d51add5520c11ee4a09]
+class InterviewStage--><rect fill="#FEFECE" height="120.377" id="InterviewStage" style="stroke: #A80036; stroke-width: 1.5;" width="142" x="1297" y="692.2793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="86" x="1325" y="708.9043">InterviewStage</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="1298" x2="1438" y1="716.7988" y2="716.7988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="72" x="1303" y="731.4551">STAGE_1_INIT</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="110" x="1303" y="744.7646">STAGE_2_QUESTION</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="90" x="1303" y="758.0742">STAGE_3_PROBE</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="122" x="1303" y="771.3838">STAGE_4_DIAGNOSTIC</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="130" x="1303" y="784.6934">STAGE_5_REMEDIATION</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="111" x="1303" y="798.0029">STAGE_6_SUMMARY</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="1298" x2="1438" y1="804.6563" y2="804.6563"/><!--MD5=[100b8c98aa438fdfb58d51fc35a66bea]
+class QuestionDifficulty--><rect fill="#FEFECE" height="80.4482" id="QuestionDifficulty" style="stroke: #A80036; stroke-width: 1.5;" width="107" x="987.5" y="371.2793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="990.5" y="387.9043">QuestionDifficulty</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="988.5" x2="1093.5" y1="395.7988" y2="395.7988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="24" x="993.5" y="410.4551">easy</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="43" x="993.5" y="423.7646">medium</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="24" x="993.5" y="437.0742">hard</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="988.5" x2="1093.5" y1="443.7275" y2="443.7275"/><!--MD5=[ec385b0aebafbab647ce1a4c59518ccd]
+class ResponseKind--><rect fill="#FEFECE" height="67.1387" id="ResponseKind" style="stroke: #A80036; stroke-width: 1.5;" width="86" x="72" y="974.2793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80" x="75" y="990.9043">ResponseKind</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="73" x2="157" y1="998.7988" y2="998.7988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="38" x="78" y="1013.4551">INITIAL</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="36" x="78" y="1026.7646">PROBE</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="73" x2="157" y1="1033.418" y2="1033.418"/><!--MD5=[199ef008dad19d7a78505aee8de0037e]
+class StrictHiringVerdict--><rect fill="#FEFECE" height="93.7578" id="StrictHiringVerdict" style="stroke: #A80036; stroke-width: 1.5;" width="112" x="251" y="960.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="106" x="254" y="977.4043">StrictHiringVerdict</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="252" x2="362" y1="985.2988" y2="985.2988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="75" x="257" y="999.9551">STRONG_HIRE</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="33" x="257" y="1013.2646">HIRED</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="80" x="257" y="1026.5742">LEAN_NO_HIRE</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="61" x="257" y="1039.8838">NOT_HIRED</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="252" x2="362" y1="1046.5371" y2="1046.5371"/><!--MD5=[66f492200f365fef6881a7a9aeede45e]
+class ReadinessLevel--><rect fill="#FEFECE" height="80.4482" id="ReadinessLevel" style="stroke: #A80036; stroke-width: 1.5;" width="115" x="398.5" y="967.7793"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="89" x="411.5" y="984.4043">ReadinessLevel</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="399.5" x2="512.5" y1="992.2988" y2="992.2988"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="86" x="404.5" y="1006.9551">L1_Foundational</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="84" x="404.5" y="1020.2646">L2_Intermediate</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="103" x="404.5" y="1033.5742">L3_Interview_Ready</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="399.5" x2="512.5" y1="1040.2275" y2="1040.2275"/><path d="M1114.5,71.7793 L1114.5,176.1563 L1505.5,176.1563 L1505.5,81.7793 L1495.5,71.7793 L1114.5,71.7793 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M1495.5,71.7793 L1495.5,81.7793 L1505.5,81.7793 L1495.5,71.7793 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="300" x="1120.5" y="89.373">Enum-typed fields are stored as TEXT in SQLite.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="340" x="1120.5" y="105.1025">Allowed values are enforced in interviewRepository.ts,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="195" x="1120.5" y="120.832">not by SQL CHECK constraints.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="0" x="1124.5" y="136.5615"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="370" x="1120.5" y="152.291">Fields ending in Json hold JSON text because this SQLite +</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="259" x="1120.5" y="168.0205">Prisma setup has no native JSON column.</text><!--MD5=[3be80da6189fd008bb2a89167a680e16]
+reverse link Student to InterviewSession--><path d="M664.4,191.0593 C662.45,219.1893 663.02,252.0493 671,280.7793 C673.78,290.7693 677.55,300.7593 681.95,310.5093 " fill="none" id="Student&lt;-InterviewSession" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="665.5,178.0793,661.0068,183.7194,664.4849,190.0363,668.9781,184.3962,665.5,178.0793" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="34" x="730" y="261.373">owns</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="150" x="672" y="277.1025">{ON DELETE SET NULL}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="21" x="642.0656" y="198.6201">0..1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="652.6905" y="299.4866">0..*</text><!--MD5=[348eb6d25e8d76583bb5688fef76147f]
+reverse link InterviewQuestion to InterviewSession--><path d="M874.94,228.1893 C869.45,234.7393 864.1,241.2993 859,247.7793 C843.41,267.5893 827.64,289.5193 813.1,310.6993 " fill="none" id="InterviewQuestion&lt;-InterviewSession" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="883.66,217.9293,876.7264,219.9106,875.8886,227.0729,882.8222,225.0916,883.66,217.9293" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="52" x="909" y="261.373">asked in</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="150" x="860" y="277.1025">{ON DELETE SET NULL}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="21" x="854.8634" y="238.647">0..1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="794.2916" y="299.6918">0..*</text><!--MD5=[27deacc400ef67e700d0420ba61a858f]
+reverse link InterviewSession to InterviewResponse--><path d="M606.31,437.5193 C495.7,463.3493 344.34,513.1393 241,604.7793 C218.54,624.6993 196.38,648.5993 177.06,671.2593 " fill="none" id="InterviewSession&lt;-InterviewResponse" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="619.26,434.5593,612.5188,431.9987,607.5624,437.2364,614.3036,439.797,619.26,434.5593" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="48" x="377.5" y="555.373">records</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="151" x="326" y="571.1025">{ON DELETE CASCADE}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="5" x="606.6149" y="433.0736">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="159.037" y="660.1991">0..*</text><!--MD5=[18a1cf96cf7d93a109fab9ffc6df5de2]
+reverse link InterviewSession to DiagnosticEvaluation--><path d="M608.19,483.3793 C579.92,500.6193 551.42,520.3393 527,541.7793 C505.75,560.4293 485.36,582.2093 466.64,604.5393 " fill="none" id="InterviewSession&lt;-DiagnosticEvaluation" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="619.43,476.6393,612.2273,476.2922,609.1366,482.8074,616.3393,483.1545,619.43,476.6393" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="62" x="572.5" y="555.373">scored by</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="151" x="528" y="571.1025">{ON DELETE CASCADE}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="5" x="606.382" y="477.7676">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="21" x="450.6242" y="593.6739">0..1</text><!--MD5=[18c0d32be73e2814487b2a1b4ebb4d59]
+reverse link InterviewSession to RemediationAttempt--><path d="M705.68,524.3893 C691.56,560.9293 675.87,601.5193 661.72,638.1393 " fill="none" id="InterviewSession&lt;-RemediationAttempt" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="710.4,512.1593,704.5065,516.3146,706.0755,523.353,711.969,519.1976,710.4,512.1593" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="77" x="734" y="555.373">improved by</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="151" x="697" y="571.1025">{ON DELETE CASCADE}</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="5" x="702.3817" y="532.7227">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="23" x="640.9855" y="627.2036">0..*</text><!--MD5=[fa4810613e4e4bcf48ed41db5d9f5849]
+link InterviewSession to TargetRole--><path d="M841.09,511.7993 C847.2,521.4893 852.65,531.5393 857,541.7793 C879.78,595.3293 883.13,663.1993 882.41,706.9293 " fill="none" id="InterviewSession-&gt;TargetRole" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="882.3,712.1393,886.4792,703.2211,882.4,707.1403,878.4808,703.0611,882.3,712.1393" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[5f7f25f81461e782dd8be95f7ad96ce3]
+link InterviewSession to FocusDomain--><path d="M878.7,499.4493 C922.49,530.8793 970.71,567.7593 1012,604.7793 C1042.95,632.5293 1074.47,666.6393 1099.16,694.9593 " fill="none" id="InterviewSession-&gt;FocusDomain" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="1102.45,698.7393,1099.554,689.3258,1099.1656,694.9693,1093.5221,694.5809,1102.45,698.7393" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[87fa516d34b02145e68a4c7f9cf21840]
+link InterviewSession to InterviewStage--><path d="M878.7,474.0893 C908.39,487.2793 940.04,500.5993 970,511.7793 C1104.76,562.0793 1166.42,516.5093 1280,604.7793 C1307.46,626.1193 1328.23,658.6393 1342.67,687.6193 " fill="none" id="InterviewSession-&gt;InterviewStage" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="1344.93,692.2393,1344.5583,682.3975,1342.7283,687.7501,1337.3756,685.9202,1344.93,692.2393" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[fd2db5d794fe02ee9a8e8bb511315556]
+link InterviewQuestion to QuestionDifficulty--><path d="M1010.03,218.0393 C1013.4,227.9693 1016.47,238.0193 1019,247.7793 C1029.16,287.0193 1034.82,332.8793 1037.85,365.8593 " fill="none" id="InterviewQuestion-&gt;QuestionDifficulty" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="1038.31,371.0293,1041.498,361.7107,1037.8676,366.0489,1033.5294,362.4185,1038.31,371.0293" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[eb315b5050a9e6eb04615f01488a29f0]
+link InterviewResponse to ResponseKind--><path d="M115,833.4893 C115,878.8393 115,933.4093 115,969.0393 " fill="none" id="InterviewResponse-&gt;ResponseKind" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="115,974.1593,119,965.1593,115,969.1593,111,965.1593,115,974.1593" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[9113178cb38f69a1d61a11e3f9a79d85]
+link DiagnosticEvaluation to StrictHiringVerdict--><path d="M331.43,900.0093 C326.89,919.8493 322.5,939.0293 318.73,955.5193 " fill="none" id="DiagnosticEvaluation-&gt;StrictHiringVerdict" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="317.58,960.5493,323.4861,952.6678,318.6949,955.6752,315.6875,950.884,317.58,960.5493" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[952646752cd29ff5d427fb62b29bbdd1]
+link DiagnosticEvaluation to ReadinessLevel--><path d="M417.67,900.0093 C425.86,922.8293 433.74,944.7593 440.19,962.7493 " fill="none" id="DiagnosticEvaluation-&gt;ReadinessLevel" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="441.98,967.7093,442.7067,957.8873,440.292,963.0029,435.1764,960.5881,441.98,967.7093" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[95df5fd0b130c0071f79ff4b01a810d4]
+@startuml class-diagram
+title AI Interview: Persistence Model (Prisma + SQLite)
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+class Student <<entity>> {
+  + id : String {PK, cuid}
+  + displayName : String
+  + email : String [0..1] {unique}
+  + createdAt : DateTime = now
+}
+
+class InterviewQuestion <<entity>> {
+  + id : String {PK}
+  + domain : FocusDomain
+  + difficulty : QuestionDifficulty
+  + title : String
+  + prompt : String
+  + targetMechanism : String
+  + expectedKeywordsJson : String = "[]"
+  + keyInvariantsJson : String = "[]"
+  + misconceptionsJson : String = "[]"
+  - -
+  <<index>> (domain, difficulty)
+}
+
+class InterviewSession <<entity>> {
+  + id : String {PK, cuid}
+  + studentId : String [0..1] {FK}
+  + questionId : String [0..1] {FK}
+  + role : TargetRole
+  + domain : FocusDomain
+  + currentStage : InterviewStage = STAGE_1_INIT
+  + startedAt : DateTime = now
+  + endedAt : DateTime [0..1]
+  + totalDurationSeconds : Int = 0 {>= 0}
+  - -
+  <<index>> (studentId, startedAt)
+  <<index>> (startedAt)
+}
+
+class InterviewResponse <<entity>> {
+  + id : String {PK, cuid}
+  + sessionId : String {FK}
+  + kind : ResponseKind
+  + transcript : String {not blank}
+  + durationSeconds : Int {>= 0}
+  + cadenceGapSeconds : Int [0..1] {>= 0}
+  + recordedAt : DateTime = now
+  - -
+  <<index>> (sessionId, recordedAt)
+}
+
+class DiagnosticEvaluation <<entity>> {
+  + id : String {PK, cuid}
+  + sessionId : String {FK, unique}
+  + hiringVerdict : StrictHiringVerdict
+  + verdictHeadline : String
+  + technicalAccuracy : Int {0..100}
+  + communicationScore : Int {0..100}
+  + readinessLevel : ReadinessLevel
+  + rejectionReasonsJson : String = "[]"
+  + flaggedConcept : String
+  + flaggedDiagnosis : String
+  + cadenceGapSeconds : Int [0..1]
+  + drillPrompt : String
+  + drillDurationSeconds : Int {>= 0}
+  + drillFocus : String [0..1]
+  + modelAnswerJson : String = "[]"
+  + detailedFeedbackJson : String = "{}"
+  + rubricCriteriaJson : String = "[]"
+  + createdAt : DateTime = now
+}
+
+class RemediationAttempt <<entity>> {
+  + id : String {PK, cuid}
+  + sessionId : String {FK}
+  + drillPrompt : String
+  + transcript : String
+  + durationSeconds : Int {>= 0}
+  + baselineMastery : Int {0..100}
+  + revisedMastery : Int {0..100}
+  + masteryGain : Int {= revised - baseline}
+  + strengthsJson : String = "[]"
+  + persistingGapsJson : String = "[]"
+  + evaluatorNotes : String = ""
+  + createdAt : DateTime = now
+  - -
+  <<index>> (sessionId, createdAt)
+}
+
+enum TargetRole {
+  Junior Backend Engineer
+  Junior Full-Stack Engineer
+  Junior Systems & Infrastructure Engineer
+}
+
+enum FocusDomain {
+  Relational Databases & Indexing
+  Distributed Systems & Caching
+  Data Structures & Algorithmic Complexity
+  Operating Systems & Concurrency
+  Web Architecture & API Fundamentals
+}
+
+enum InterviewStage {
+  STAGE_1_INIT
+  STAGE_2_QUESTION
+  STAGE_3_PROBE
+  STAGE_4_DIAGNOSTIC
+  STAGE_5_REMEDIATION
+  STAGE_6_SUMMARY
+}
+
+enum QuestionDifficulty {
+  easy
+  medium
+  hard
+}
+
+enum ResponseKind {
+  INITIAL
+  PROBE
+}
+
+enum StrictHiringVerdict {
+  STRONG_HIRE
+  HIRED
+  LEAN_NO_HIRE
+  NOT_HIRED
+}
+
+enum ReadinessLevel {
+  L1_Foundational
+  L2_Intermediate
+  L3_Interview_Ready
+}
+
+Student "0..1" o- - "0..*" InterviewSession : owns\n{ON DELETE SET NULL}
+InterviewQuestion "0..1" o- - "0..*" InterviewSession : asked in\n{ON DELETE SET NULL}
+InterviewSession "1" *- - "0..*" InterviewResponse : records\n{ON DELETE CASCADE}
+InterviewSession "1" *- - "0..1" DiagnosticEvaluation : scored by\n{ON DELETE CASCADE}
+InterviewSession "1" *- - "0..*" RemediationAttempt : improved by\n{ON DELETE CASCADE}
+
+InterviewSession ..> TargetRole
+InterviewSession ..> FocusDomain
+InterviewSession ..> InterviewStage
+InterviewQuestion ..> QuestionDifficulty
+InterviewResponse ..> ResponseKind
+DiagnosticEvaluation ..> StrictHiringVerdict
+DiagnosticEvaluation ..> ReadinessLevel
+
+note "Enum-typed fields are stored as TEXT in SQLite.\nAllowed values are enforced in interviewRepository.ts,\nnot by SQL CHECK constraints.\n\nFields ending in Json hold JSON text because this SQLite +\nPrisma setup has no native JSON column." as N1
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 05:22:07 EST 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 21.0.12.1+1-1-24.04.4-Ubuntu
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

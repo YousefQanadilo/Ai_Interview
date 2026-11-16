@@ -1,0 +1,105 @@
+@startuml sequence-diagram
+' UML sequence diagram: a student completes one interview and the app stores it.
+' Repository calls match src/server/interviewRepository.ts.
+' POST /api/v1/sessions/evaluate is the route evaluationService.ts already calls.
+' The other Express routes are Franck's Sprint 2 work; their paths are planned.
+title AI Interview: Completing an Interview and Saving the Session
+
+skinparam shadowing false
+skinparam sequenceMessageAlign left
+autonumber
+
+actor Student
+participant "React UI" as UI
+participant "Express API\n(server.ts)" as API
+participant "Gemini API" as AI
+participant "interviewRepository.ts" as Repo
+participant "Prisma Client" as Prisma
+database "SQLite\nprisma/dev.db" as DB
+
+== Stage 1: setup ==
+Student -> UI : Choose role and focus domain
+UI -> UI : Check microphone and connection\n(useMicrophonePermission, useConnectionStatus)
+Student -> UI : Start interview
+UI -> API : POST /api/v1/sessions {role, domain}
+API -> Repo : createInterviewSession({role, domain, studentId?, questionId?})
+Repo -> Repo : Validate role and domain
+Repo -> Prisma : interviewSession.create(...)
+Prisma -> DB : INSERT InterviewSession
+DB --> Prisma : row
+Prisma --> Repo : session
+Repo --> API : session (currentStage = STAGE_1_INIT)
+API --> UI : 201 {sessionId}
+
+== Stages 2 and 3: question and adaptive probe ==
+API -> Repo : updateInterviewStage(id, STAGE_2_QUESTION)
+Repo -> Prisma : interviewSession.update(...)
+Prisma -> DB : UPDATE InterviewSession
+UI -> Student : AI interviewer asks the question (voice)
+Student -> UI : Spoken answer
+UI -> API : Answer transcript and timing
+API -> Repo : addInterviewResponse({sessionId, kind: INITIAL,\ntranscript, durationSeconds})
+Repo -> Prisma : interviewResponse.create(...)
+Prisma -> DB : INSERT InterviewResponse
+API -> AI : Generate follow-up probe
+AI --> API : probe question
+API -> Repo : updateInterviewStage(id, STAGE_3_PROBE)
+Repo -> Prisma : interviewSession.update(...)
+Prisma -> DB : UPDATE InterviewSession
+UI -> Student : Ask the probe
+Student -> UI : Probe answer
+UI -> API : Probe transcript and cadence gap
+API -> Repo : addInterviewResponse({kind: PROBE, cadenceGapSeconds, ...})
+Repo -> Prisma : interviewResponse.create(...)
+Prisma -> DB : INSERT InterviewResponse
+
+== Stage 4: diagnostic evaluation ==
+UI -> API : POST /api/v1/sessions/evaluate\n(buildEvaluationRequest)
+API -> AI : Score answers against the rubric
+AI --> API : raw evaluation JSON
+API -> Repo : saveDiagnosticEvaluation(sessionId, evaluation)
+Repo -> Repo : Check session id, verdict and 0-100 scores
+Repo -> Prisma : diagnosticEvaluation.upsert(...)
+Prisma -> DB : INSERT or UPDATE DiagnosticEvaluation
+API -> Repo : updateInterviewStage(id, STAGE_4_DIAGNOSTIC)
+Repo -> Prisma : interviewSession.update(...)
+Prisma -> DB : UPDATE InterviewSession
+API --> UI : evaluation
+UI -> UI : parseEvaluationPayload, enforceAntiSycophancy\n(verdict can be lowered, never raised)
+UI -> Student : Dashboard with scores and flagged area
+
+== Stage 5: remediation drill ==
+opt Student practises the flagged area (repeatable)
+  Student -> UI : Answer the drill
+  UI -> API : Drill transcript
+  API -> AI : Re-score mastery
+  AI --> API : baseline and revised mastery
+  API -> Repo : addRemediationAttempt({sessionId, drillPrompt, transcript,\nbaselineMastery, revisedMastery, ...})
+  Repo -> Prisma : remediationAttempt.create(...) with masteryGain
+  Prisma -> DB : INSERT RemediationAttempt
+end
+
+== Stage 6: finish ==
+API -> Repo : updateInterviewStage(id, STAGE_6_SUMMARY,\n{endedAt, totalDurationSeconds})
+Repo -> Prisma : interviewSession.update(...)
+Prisma -> DB : UPDATE InterviewSession
+UI -> Student : Summary screen
+
+== Later: viewing history ==
+Student -> UI : Open History drawer
+UI -> API : GET /api/v1/sessions
+API -> Repo : listInterviewSessions(studentId?)
+Repo -> Prisma : interviewSession.findMany(include evaluation)
+Prisma -> DB : SELECT ... ORDER BY startedAt DESC LIMIT 100
+DB --> Prisma : rows
+Prisma --> Repo : sessions
+Repo --> API : sessions
+API --> UI : sessions
+UI -> Student : List of past sessions
+
+note over UI, API
+  Sprint 2 status: the repository and database layer are done.
+  The Express routes, and moving the History drawer from
+  localStorage to the API, are still in progress.
+end note
+@enduml
