@@ -231,7 +231,7 @@ docs(db): record <your name>'s local database verification
 | Member | GitHub | OS | Node version | db:migrate | db:seed | test:db | Verified record | Date |
 |---|---|---|---|---|---|---|---|---|
 | Lee Tropezado | @leetropezado | Windows 11 | v26.13.0 | ✅ pass | ✅ pass | ✅ pass | sprint2-demo-session visible in Prisma Studio | 2026-11-15 |
-| Kailyn Ponce | @kailynalisha | pending | pending | pending | pending | pending | pending | pending |
+| Kailyn Ponce | @kailynalisha | macOS 15.6.1 (Apple M1) | v24.11.1 | ✅ pass | ✅ pass | ✅ pass | db:seed loaded sprint2-demo-session; test:db passed | 2026-11-15 |
 | Yousef Qanadilo | @YousefQanadilo | pending | pending | pending | pending | pending | pending | pending |
 | Franck Kanunu | @franckkanunu | pending | pending | pending | pending | pending | pending | pending |
 
