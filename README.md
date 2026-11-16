@@ -36,8 +36,24 @@ npm test         # run the unit tests
 npx vite         # preview the frontend at http://localhost:5173
 ```
 
+### Database (Sprint 2)
+
+The app stores interview sessions in a local **SQLite** database through **Prisma**.
+Full instructions, troubleshooting and the team verification table are in
+[`docs/database-setup.md`](docs/database-setup.md). Short version:
+
+```bash
+cp .env.example .env     # PowerShell: Copy-Item .env.example .env
+npm run db:generate      # build the Prisma client
+npm run db:migrate       # create prisma/dev.db from the committed migrations
+npm run db:seed          # load one demo session
+npm run test:db          # database integration test
+```
+
+Never commit `.env` or `*.db` files. Both are ignored by `.gitignore`.
+
 The full app (`npm run dev`) will run once the backend server is added. It will also need a
-Gemini API key in a `.env.local` file. See `.env.example`.
+Gemini API key in your `.env` file. See `.env.example`.
 
 ## Project structure (so far)
 
@@ -151,7 +167,7 @@ code in this repository.
 - **Figma prototype:** https://www.figma.com/file/oahuXOFAGsxWDxGJ9l2NT5?node-id=0%3A1
 - **Completed feature issue:** [#11 — Save diagnostic practice sessions and reopen history](https://github.com/YousefQanadilo/Ai_Interview/issues/11)
 - **Feature pull request:** [#12 — Save demo diagnostic sessions and view history](https://github.com/YousefQanadilo/Ai_Interview/pull/12)
-- **GitHub Project / Sprint 1 board:** Add the team's actual GitHub Project URL after confirming that #11 is assigned to Sprint 1.
+- **GitHub Project board:** https://github.com/users/leetropezado/projects/1
 
 ### Screenshot checklist
 
