@@ -1,5 +1,6 @@
-import type { DiagnosticEvaluation, FocusDomain, InterviewStage, StrictHiringVerdict, TargetRole } from '../types/interview';
+import type { DiagnosticEvaluation, FocusDomain, InterviewSession, InterviewStage, StrictHiringVerdict, TargetRole } from '../types/interview';
 import { prisma } from './prismaClient';
+import { SessionNotFoundError, validateInterviewSession } from './sessionValidation';
 
 const ROLES: readonly TargetRole[] = [
   'Junior Backend Engineer',
@@ -104,6 +105,78 @@ export async function updateInterviewStage(
         ? { totalDurationSeconds: nonnegative(options.totalDurationSeconds, 'duration') } : {}),
     },
   });
+}
+
+/** Save the full UI session snapshot and searchable session metadata in SQLite. */
+export async function saveInterviewSessionSnapshot(session: InterviewSession): Promise<InterviewSession> {
+  validateInterviewSession(session);
+  const startedAt = new Date(session.startedAt);
+  const endedAt = session.endedAt === undefined ? null : new Date(session.endedAt);
+  await prisma.interviewSession.upsert({
+    where: { id: session.id },
+    create: {
+      id: session.id,
+      role: session.role,
+      domain: session.domain,
+      currentStage: session.currentStage,
+      startedAt,
+      endedAt,
+      totalDurationSeconds: session.totalDurationSeconds,
+      sessionData: JSON.stringify(session),
+    },
+    update: {
+      role: session.role,
+      domain: session.domain,
+      currentStage: session.currentStage,
+      startedAt,
+      endedAt,
+      totalDurationSeconds: session.totalDurationSeconds,
+      sessionData: JSON.stringify(session),
+    },
+  });
+  return session;
+}
+
+/** PUT semantics: an update must refer to an existing database record. */
+export async function updateInterviewSessionSnapshot(id: string, session: InterviewSession): Promise<InterviewSession> {
+  if (id !== session.id) throw new Error('Session ID does not match URL');
+  const existing = await prisma.interviewSession.findUnique({ where: { id }, select: { id: true } });
+  if (!existing) throw new SessionNotFoundError();
+  return saveInterviewSessionSnapshot(session);
+}
+
+export async function getInterviewSessionSnapshot(id: string): Promise<InterviewSession | null> {
+  const record = await prisma.interviewSession.findUnique({
+    where: { id: required(id, 'session id') },
+    select: { sessionData: true },
+  });
+  if (!record || record.sessionData === '{}') return null;
+  try {
+    const value: unknown = JSON.parse(record.sessionData);
+    validateInterviewSession(value);
+    return value;
+  } catch {
+    return null;
+  }
+}
+
+export async function listInterviewSessionSnapshots(): Promise<InterviewSession[]> {
+  const records = await prisma.interviewSession.findMany({
+    select: { sessionData: true },
+    orderBy: { startedAt: 'desc' },
+    take: 100,
+  });
+  const sessions: InterviewSession[] = [];
+  for (const record of records) {
+    try {
+      const value: unknown = JSON.parse(record.sessionData);
+      validateInterviewSession(value);
+      sessions.push(value);
+    } catch {
+      // Ignore legacy rows and any invalid snapshot rather than breaking all history.
+    }
+  }
+  return sessions;
 }
 
 export async function addInterviewResponse(input: {

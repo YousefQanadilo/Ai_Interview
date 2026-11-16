@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Student {
-  id         String             @id @default(cuid())
+  id          String             @id @default(cuid())
   displayName String
-  email      String?            @unique
-  createdAt  DateTime           @default(now())
-  sessions   InterviewSession[]
+  email       String?            @unique
+  createdAt   DateTime           @default(now())
+  sessions    InterviewSession[]
 }
 
 model InterviewQuestion {
@@ -40,6 +40,8 @@ model InterviewSession {
   startedAt            DateTime             @default(now())
   endedAt              DateTime?
   totalDurationSeconds Int                  @default(0)
+  // Complete frontend session state, retained as JSON alongside normalized records.
+  sessionData          String               @default("{}")
   student              Student?             @relation(fields: [studentId], references: [id], onDelete: SetNull)
   question             InterviewQuestion?   @relation(fields: [questionId], references: [id], onDelete: SetNull)
   responses            InterviewResponse[]
@@ -51,54 +53,54 @@ model InterviewSession {
 }
 
 model InterviewResponse {
-  id                  String            @id @default(cuid())
-  sessionId           String
-  kind                String
-  transcript          String
-  durationSeconds     Int
-  cadenceGapSeconds   Int?
-  recordedAt          DateTime          @default(now())
-  session             InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  id                String           @id @default(cuid())
+  sessionId         String
+  kind              String
+  transcript        String
+  durationSeconds   Int
+  cadenceGapSeconds Int?
+  recordedAt        DateTime         @default(now())
+  session           InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
   @@index([sessionId, recordedAt])
 }
 
 model DiagnosticEvaluation {
-  id                  String            @id @default(cuid())
-  sessionId           String            @unique
-  hiringVerdict       String
-  verdictHeadline     String
+  id                   String           @id @default(cuid())
+  sessionId            String           @unique
+  hiringVerdict        String
+  verdictHeadline      String
   technicalAccuracy   Int
   communicationScore  Int
   readinessLevel      String
-  rejectionReasonsJson String          @default("[]")
+  rejectionReasonsJson String           @default("[]")
   flaggedConcept      String
   flaggedDiagnosis    String
   cadenceGapSeconds   Int?
   drillPrompt         String
   drillDurationSeconds Int
   drillFocus          String?
-  modelAnswerJson     String            @default("[]")
-  detailedFeedbackJson String           @default("{}")
-  rubricCriteriaJson  String            @default("[]")
-  createdAt           DateTime          @default(now())
-  session             InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  modelAnswerJson     String           @default("[]")
+  detailedFeedbackJson String          @default("{}")
+  rubricCriteriaJson  String           @default("[]")
+  createdAt           DateTime         @default(now())
+  session             InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 }
 
 model RemediationAttempt {
-  id                  String            @id @default(cuid())
-  sessionId           String
-  drillPrompt         String
-  transcript          String
-  durationSeconds     Int
-  baselineMastery     Int
-  revisedMastery      Int
-  masteryGain         Int
-  strengthsJson       String            @default("[]")
-  persistingGapsJson  String            @default("[]")
-  evaluatorNotes      String            @default("")
-  createdAt           DateTime          @default(now())
-  session             InterviewSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  id                 String           @id @default(cuid())
+  sessionId          String
+  drillPrompt        String
+  transcript         String
+  durationSeconds    Int
+  baselineMastery    Int
+  revisedMastery     Int
+  masteryGain        Int
+  strengthsJson      String           @default("[]")
+  persistingGapsJson String           @default("[]")
+  evaluatorNotes     String           @default("")
+  createdAt          DateTime         @default(now())
+  session            InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
   @@index([sessionId, createdAt])
 }

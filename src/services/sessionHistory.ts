@@ -1,45 +1,57 @@
 import type { InterviewSession } from '../types/interview';
 
-export const HISTORY_KEY = 'mock-interview-practice-history-v1';
-const MAX_SESSIONS = 20;
+const API_URL = '/api/v1/sessions';
 
-type StorageLike = Pick<Storage, 'getItem' | 'setItem'>;
+type Fetcher = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
-function isSession(value: unknown): value is InterviewSession {
-  if (!value || typeof value !== 'object') return false;
-  const session = value as Record<string, unknown>;
-  const diagnostic = session.diagnostic;
-  if (!diagnostic || typeof diagnostic !== 'object') return false;
-  const scores = diagnostic as Record<string, unknown>;
-  return typeof session.id === 'string'
-    && typeof session.role === 'string'
-    && typeof session.domain === 'string'
-    && typeof session.startedAt === 'number'
-    && Number.isFinite(session.startedAt)
-    && typeof scores.technical_accuracy_score === 'number'
-    && typeof scores.communication_score === 'number'
-    && typeof scores.hiring_verdict === 'string'
-    && typeof scores.flagged_improvement_area === 'object'
-    && scores.flagged_improvement_area !== null
-    && typeof scores.remediation_drill === 'object'
-    && scores.remediation_drill !== null;
-}
-
-export function loadHistory(storage: StorageLike): InterviewSession[] {
+async function request<T>(fetcher: Fetcher, path: string, init?: RequestInit): Promise<T> {
+  let response: Response;
   try {
-    const raw = storage.getItem(HISTORY_KEY);
-    if (!raw) return [];
-    const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter(isSession).slice(0, MAX_SESSIONS) : [];
+    response = await fetcher(path, {
+      ...init,
+      headers: { 'Content-Type': 'application/json', ...init?.headers },
+    });
   } catch {
-    return [];
+    throw new Error('The session service is unavailable. Check your connection and try again.');
   }
+
+  let payload: unknown;
+  try {
+    payload = await response.json();
+  } catch {
+    throw new Error('The session service returned an invalid response.');
+  }
+  if (!response.ok) {
+    const message = payload && typeof payload === 'object' && 'error' in payload
+      && typeof payload.error === 'string' ? payload.error : 'Could not access interview sessions.';
+    throw new Error(message);
+  }
+  return payload as T;
 }
 
-export function saveHistory(storage: StorageLike, session: InterviewSession): InterviewSession[] {
-  if (!isSession(session)) return loadHistory(storage);
-  const entries = [session, ...loadHistory(storage).filter((entry) => entry.id !== session.id)]
-    .slice(0, MAX_SESSIONS);
-  storage.setItem(HISTORY_KEY, JSON.stringify(entries));
-  return entries;
+export async function loadHistory(fetcher: Fetcher = fetch): Promise<InterviewSession[]> {
+  const result = await request<{ sessions: InterviewSession[] }>(fetcher, API_URL);
+  return result.sessions;
+}
+
+export async function saveHistory(
+  session: InterviewSession,
+  fetcher: Fetcher = fetch,
+): Promise<InterviewSession> {
+  const result = await request<{ session: InterviewSession }>(fetcher, API_URL, {
+    method: 'POST',
+    body: JSON.stringify(session),
+  });
+  return result.session;
+}
+
+export async function updateHistory(
+  session: InterviewSession,
+  fetcher: Fetcher = fetch,
+): Promise<InterviewSession> {
+  const result = await request<{ session: InterviewSession }>(fetcher, `${API_URL}/${encodeURIComponent(session.id)}`, {
+    method: 'PUT',
+    body: JSON.stringify(session),
+  });
+  return result.session;
 }
