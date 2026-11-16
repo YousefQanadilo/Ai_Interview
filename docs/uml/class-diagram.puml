@@ -1,0 +1,162 @@
+@startuml class-diagram
+' UML class diagram for the AI Interview app (Sprint 2).
+' Source of truth: prisma/schema.prisma and prisma/migrations/20261115000000_init.
+' Allowed values and ranges come from src/server/interviewRepository.ts.
+title AI Interview: Persistence Model (Prisma + SQLite)
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide circle
+
+class Student <<entity>> {
+  + id : String {PK, cuid}
+  + displayName : String
+  + email : String [0..1] {unique}
+  + createdAt : DateTime = now
+}
+
+class InterviewQuestion <<entity>> {
+  + id : String {PK}
+  + domain : FocusDomain
+  + difficulty : QuestionDifficulty
+  + title : String
+  + prompt : String
+  + targetMechanism : String
+  + expectedKeywordsJson : String = "[]"
+  + keyInvariantsJson : String = "[]"
+  + misconceptionsJson : String = "[]"
+  --
+  <<index>> (domain, difficulty)
+}
+
+class InterviewSession <<entity>> {
+  + id : String {PK, cuid}
+  + studentId : String [0..1] {FK}
+  + questionId : String [0..1] {FK}
+  + role : TargetRole
+  + domain : FocusDomain
+  + currentStage : InterviewStage = STAGE_1_INIT
+  + startedAt : DateTime = now
+  + endedAt : DateTime [0..1]
+  + totalDurationSeconds : Int = 0 {>= 0}
+  --
+  <<index>> (studentId, startedAt)
+  <<index>> (startedAt)
+}
+
+class InterviewResponse <<entity>> {
+  + id : String {PK, cuid}
+  + sessionId : String {FK}
+  + kind : ResponseKind
+  + transcript : String {not blank}
+  + durationSeconds : Int {>= 0}
+  + cadenceGapSeconds : Int [0..1] {>= 0}
+  + recordedAt : DateTime = now
+  --
+  <<index>> (sessionId, recordedAt)
+}
+
+class DiagnosticEvaluation <<entity>> {
+  + id : String {PK, cuid}
+  + sessionId : String {FK, unique}
+  + hiringVerdict : StrictHiringVerdict
+  + verdictHeadline : String
+  + technicalAccuracy : Int {0..100}
+  + communicationScore : Int {0..100}
+  + readinessLevel : ReadinessLevel
+  + rejectionReasonsJson : String = "[]"
+  + flaggedConcept : String
+  + flaggedDiagnosis : String
+  + cadenceGapSeconds : Int [0..1]
+  + drillPrompt : String
+  + drillDurationSeconds : Int {>= 0}
+  + drillFocus : String [0..1]
+  + modelAnswerJson : String = "[]"
+  + detailedFeedbackJson : String = "{}"
+  + rubricCriteriaJson : String = "[]"
+  + createdAt : DateTime = now
+}
+
+class RemediationAttempt <<entity>> {
+  + id : String {PK, cuid}
+  + sessionId : String {FK}
+  + drillPrompt : String
+  + transcript : String
+  + durationSeconds : Int {>= 0}
+  + baselineMastery : Int {0..100}
+  + revisedMastery : Int {0..100}
+  + masteryGain : Int {= revised - baseline}
+  + strengthsJson : String = "[]"
+  + persistingGapsJson : String = "[]"
+  + evaluatorNotes : String = ""
+  + createdAt : DateTime = now
+  --
+  <<index>> (sessionId, createdAt)
+}
+
+enum TargetRole {
+  Junior Backend Engineer
+  Junior Full-Stack Engineer
+  Junior Systems & Infrastructure Engineer
+}
+
+enum FocusDomain {
+  Relational Databases & Indexing
+  Distributed Systems & Caching
+  Data Structures & Algorithmic Complexity
+  Operating Systems & Concurrency
+  Web Architecture & API Fundamentals
+}
+
+enum InterviewStage {
+  STAGE_1_INIT
+  STAGE_2_QUESTION
+  STAGE_3_PROBE
+  STAGE_4_DIAGNOSTIC
+  STAGE_5_REMEDIATION
+  STAGE_6_SUMMARY
+}
+
+enum QuestionDifficulty {
+  easy
+  medium
+  hard
+}
+
+enum ResponseKind {
+  INITIAL
+  PROBE
+}
+
+enum StrictHiringVerdict {
+  STRONG_HIRE
+  HIRED
+  LEAN_NO_HIRE
+  NOT_HIRED
+}
+
+enum ReadinessLevel {
+  L1_Foundational
+  L2_Intermediate
+  L3_Interview_Ready
+}
+
+' Relationships: multiplicities and delete rules from the migration SQL.
+' Hollow diamond = aggregation (history survives, FK set to NULL).
+' Filled diamond = composition (children deleted with the session).
+Student "0..1" o-- "0..*" InterviewSession : owns\n{ON DELETE SET NULL}
+InterviewQuestion "0..1" o-- "0..*" InterviewSession : asked in\n{ON DELETE SET NULL}
+InterviewSession "1" *-- "0..*" InterviewResponse : records\n{ON DELETE CASCADE}
+InterviewSession "1" *-- "0..1" DiagnosticEvaluation : scored by\n{ON DELETE CASCADE}
+InterviewSession "1" *-- "0..*" RemediationAttempt : improved by\n{ON DELETE CASCADE}
+
+InterviewSession ..> TargetRole
+InterviewSession ..> FocusDomain
+InterviewSession ..> InterviewStage
+InterviewQuestion ..> QuestionDifficulty
+InterviewResponse ..> ResponseKind
+DiagnosticEvaluation ..> StrictHiringVerdict
+DiagnosticEvaluation ..> ReadinessLevel
+
+note "Enum-typed fields are stored as TEXT in SQLite.\nAllowed values are enforced in interviewRepository.ts,\nnot by SQL CHECK constraints.\n\nFields ending in Json hold JSON text because this SQLite +\nPrisma setup has no native JSON column." as N1
+@enduml
